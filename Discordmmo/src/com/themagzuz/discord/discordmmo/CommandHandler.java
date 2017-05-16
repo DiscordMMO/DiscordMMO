@@ -12,6 +12,6 @@ public class CommandHandler
 {
 
 	
-	//public static List<Command> commands = new ArrayList<Command>();
+	public static List<Command> commands = new ArrayList<Command>();
 	
 }
