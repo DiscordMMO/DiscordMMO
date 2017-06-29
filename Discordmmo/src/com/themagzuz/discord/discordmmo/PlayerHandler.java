@@ -7,9 +7,11 @@ import com.themagzuz.discord.discordmmo.datatypes.Player;
 
 import net.dv8tion.jda.core.entities.User;
 
-public class PlayerHandler
+public final class PlayerHandler
 {
 
+	private PlayerHandler() {}
+	
 	static List<Player> players = new ArrayList<Player>();
 	
 	/**

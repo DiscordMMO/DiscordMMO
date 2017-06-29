@@ -17,9 +17,11 @@ import net.dv8tion.jda.core.entities.User;
 /**
  * Ignore this class for now, this is only a test! 
  */
-public class CommandHandler
+public final class CommandHandler
 {
 
+	private CommandHandler() {}
+	
 	public static String commandPrefix;
 	
 	public static List<Command> commands = new ArrayList<Command>();
