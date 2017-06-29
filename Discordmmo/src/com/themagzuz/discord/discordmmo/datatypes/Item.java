@@ -1,7 +1,8 @@
 package com.themagzuz.discord.discordmmo.datatypes;
 
-public enum Status {
+public abstract class Item
+{
 
-	GATHERING, IDLE, FIGHTING
+	public String name;
 	
 }

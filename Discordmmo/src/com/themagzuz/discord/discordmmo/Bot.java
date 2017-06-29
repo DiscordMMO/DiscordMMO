@@ -21,7 +21,9 @@ public class Bot {
 	
 	public static void main(String[] args) {
 		try {
-			jda = new JDABuilder(AccountType.BOT).addEventListener(new BotListener()).setToken(TOKEN)/*.setGame(Game.of("with ma dick ( \u0361\u00B0\u035C\u0296 \u0361\u00B0 )"))*/.buildBlocking();
+			LoadVars();
+			CommandHandler.SetupCommands();
+			jda = new JDABuilder(AccountType.BOT).addEventListener(new BotListener()).setToken(TOKEN).buildBlocking();
 		} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
 			e.printStackTrace();
 		}
