@@ -1,6 +1,8 @@
 package com.themagzuz.discord.discordmmo.datatypes.actions;
 
 import java.time.Instant;
+
+import com.themagzuz.discord.discordmmo.ItemHandler;
 import com.themagzuz.discord.discordmmo.datatypes.Action;
 import com.themagzuz.discord.discordmmo.datatypes.Player;
 import com.themagzuz.discord.discordmmo.heplers.TimeHelper;
@@ -27,6 +29,7 @@ public class ChopWoodAction extends Action
 	@Override
 	protected void finish()
 	{
+		performer.inventory.AddStack(ItemHandler.getItem("wood").CreateStack());
 		super.finish();
 	}
 

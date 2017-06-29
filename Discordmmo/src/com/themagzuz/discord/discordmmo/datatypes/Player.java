@@ -17,10 +17,10 @@ public class Player {
 	
 	protected Action currentAction;
 	
+	public Inventory inventory;
+	
 	public User user;
 	public PrivateChannel privateChannel;
-	
-	
 	
 	ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	

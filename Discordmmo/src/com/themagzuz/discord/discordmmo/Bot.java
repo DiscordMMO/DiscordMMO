@@ -23,6 +23,7 @@ public class Bot {
 		try {
 			LoadVars();
 			CommandHandler.SetupCommands();
+			ItemHandler.SetupItems();
 			jda = new JDABuilder(AccountType.BOT).addEventListener(new BotListener()).setToken(TOKEN).buildBlocking();
 		} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
 			e.printStackTrace();
