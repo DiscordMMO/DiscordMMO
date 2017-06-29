@@ -15,9 +15,12 @@ public class Player {
 	
 	public String name;
 	
-	public Action currentAction;
+	protected Action currentAction;
+	
 	public User user;
 	public PrivateChannel privateChannel;
+	
+	
 	
 	ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 	
@@ -27,6 +30,9 @@ public class Player {
 	public boolean mention = true;
 	public boolean messageOnFinish = true;
 
+	
+	////////// CONSTRUCTORS //////////
+	
 	/**
 	 * You probably want to use {@link com.themagzuz.discord.discordmmo.PlayerHandler#CreatePlayer(User, String) CreatePlayer}
 	 * @param _name
@@ -46,6 +52,8 @@ public class Player {
 				});
 		Idle();
 	}
+	
+	 ////////// METHODS //////////
 	
 	/**
 	 * Makes the player start an action, if they're idle
@@ -82,4 +90,12 @@ public class Player {
 		}
 	}
 	
+	////////// GETTERS AND SETTERS //////////
+	
+	public Action getCurrentAction()
+	{
+		return currentAction;
+	}
+	
 }
+

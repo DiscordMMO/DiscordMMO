@@ -70,7 +70,7 @@ public class StatusCommand extends Command
 			return;
 		}
 		Player player = PlayerHandler.getPlayer(sender);
-		channel.sendMessage(player.currentAction.GetActiveFormattingSecondPerson()).queue();
+		channel.sendMessage(player.getCurrentAction().GetActiveFormattingSecondPerson()).queue();
 		
 	}
 
