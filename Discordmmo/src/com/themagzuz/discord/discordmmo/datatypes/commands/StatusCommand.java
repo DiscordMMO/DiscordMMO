@@ -1,6 +1,7 @@
 package com.themagzuz.discord.discordmmo.datatypes.commands;
 
 import com.themagzuz.discord.discordmmo.PlayerHandler;
+import com.themagzuz.discord.discordmmo.Strings;
 import com.themagzuz.discord.discordmmo.datatypes.Command;
 import com.themagzuz.discord.discordmmo.datatypes.Player;
 
@@ -66,7 +67,7 @@ public class StatusCommand extends Command
 		
 		if (!PlayerHandler.HasPlayer(sender))
 		{
-			channel.sendMessage(sender.getAsMention() + ": You are not registered. Register with $register [name]").queue();
+			channel.sendMessage(sender.getAsMention() + Strings.NOT_REGISTERED).queue();
 			return;
 		}
 		Player player = PlayerHandler.getPlayer(sender);
