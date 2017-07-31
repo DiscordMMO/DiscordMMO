@@ -31,7 +31,7 @@ public class StatusCommand extends Command
 				{
 					if (PlayerHandler.HasPlayer(args[0]))
 					{
-						Player target = PlayerHandler.getPlayer(args[0]);
+						Player target = PlayerHandler.GetPlayer(args[0]);
 						channel.sendMessage(sender.getAsMention() + ": " + target.currentAction.GetActiveFormatting(false)).queue();
 					}
 					else
@@ -65,12 +65,13 @@ public class StatusCommand extends Command
 			}
 			*/
 		
-		if (!PlayerHandler.HasPlayer(sender))
+		if (!PlayerHandler.RegisterOrLogin(sender))
 		{
 			channel.sendMessage(sender.getAsMention() + Strings.NOT_REGISTERED).queue();
 			return;
 		}
-		Player player = PlayerHandler.getPlayer(sender);
+		Player player = PlayerHandler.GetPlayer(sender);
+		player.Tick();
 		channel.sendMessage(player.getCurrentAction().GetActiveFormattingSecondPerson()).queue();
 		
 	}

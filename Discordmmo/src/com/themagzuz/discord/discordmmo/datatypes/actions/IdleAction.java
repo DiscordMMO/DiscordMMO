@@ -6,15 +6,15 @@ import com.themagzuz.discord.discordmmo.datatypes.Player;
 public class IdleAction extends Action
 {
 
-	public IdleAction(Player player)
+	public IdleAction(Player player, boolean announceToPlayer)
 	{
-		super(player, Integer.MAX_VALUE);
+		super(player, Integer.MAX_VALUE, announceToPlayer);
+		name = "idle";
 	}
 	
 	@Override
 	public void run()
 	{
-		System.out.println("Idle");
 	}
 
 	@Override
@@ -47,4 +47,15 @@ public class IdleAction extends Action
 		return "You are currently idle";
 	}
 
+    @Override
+    public String GetStartedFormattingSecondPerson()
+    {
+        return "You have started idling";
+    }
+
+    @Override
+    public String GetStartedFormattingThirdPerson(boolean mention)
+    {
+        return (mention ? performer.user.getAsMention() : performer.name) + " has started idling";
+    }
 }

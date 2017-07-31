@@ -1,14 +1,23 @@
 package com.themagzuz.discord.discordmmo.datatypes;
 
+import com.themagzuz.discord.discordmmo.datatypes.actions.ChopWoodAction;
+import com.themagzuz.discord.discordmmo.datatypes.actions.IdleAction;
+import org.apache.http.impl.io.ContentLengthInputStream;
+
+import java.lang.reflect.Constructor;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.themagzuz.discord.discordmmo.datatypes.Player;
-
-public abstract class Action implements Runnable
+public abstract class Action
 {
 	
-	protected String name;
-	protected Instant finishTime;
+	protected static String name;
+	public Instant finishTime;
 	
 	protected int actionTime;
 	
@@ -17,13 +26,35 @@ public abstract class Action implements Runnable
 	 */
 	protected Player performer;
 
-	public Action(Player player, int length)
+	public Action(Player player, int length, boolean announceToPlayer)
 	{
 		actionTime = length;
 		performer = player;
+		finishTime = Instant.now().plus(actionTime, ChronoUnit.SECONDS);
+		if (player.sendPrivateMessages && announceToPlayer)
+		{
+			performer.privateChannel.sendMessage(GetStartedFormattingSecondPerson()).queue();
+		}
 	}
-	
-	@Override
+
+	public static Action GetActionFromName(String name, Player player)
+	{
+		return GetActionFromName(name, player, player.sendPrivateMessages);
+	}
+
+	public static Action GetActionFromName(String name, Player player, boolean announce)
+	{
+		switch(name.toLowerCase())
+		{
+			case "idle":
+				return new IdleAction(player, announce);
+			case "chopwood":
+				return new ChopWoodAction(player, announce);
+			default:
+				return null;
+		}
+	}
+
 	public void run()
 	{
 		if (Instant.now().isAfter(finishTime))
@@ -34,11 +65,11 @@ public abstract class Action implements Runnable
 	
 	protected void finish()
 	{
-		if (performer.messageOnFinish)
+		if (performer.sendPrivateMessages)
 		{
 			performer.privateChannel.sendMessage(GetFinishedFormattingSecondPerson()).queue();
 		}
-		performer.Idle();
+		performer.Idle(false);
 	}
 	
 	/**
@@ -59,8 +90,12 @@ public abstract class Action implements Runnable
 	public abstract String GetFinishedFormattingSecondPerson();
 	
 	public abstract String GetActiveFormattingSecondPerson();
-	
-	public String GetName()
+
+	public abstract String GetStartedFormattingSecondPerson();
+
+	public abstract String GetStartedFormattingThirdPerson(boolean mention);
+
+	public static String GetName()
 	{
 		return name;
 	}
