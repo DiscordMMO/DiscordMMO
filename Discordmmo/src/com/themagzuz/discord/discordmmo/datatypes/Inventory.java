@@ -14,7 +14,7 @@ public class Inventory
 	{
 		for (int i = 0; i < stacks.length; i++)
 		{
-			if (stacks[i].item.equals(toAdd.item))
+			if (stacks[i] != null && stacks[i].item.equals(toAdd.item))
 			{
 				stacks[i].size += toAdd.size;
 				return true;
