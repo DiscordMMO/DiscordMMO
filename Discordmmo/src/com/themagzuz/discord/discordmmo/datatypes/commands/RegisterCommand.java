@@ -19,9 +19,9 @@ public class RegisterCommand extends Command
 	@Override
 	public void run(User sender, String[] args, MessageChannel channel)
 	{
-		if (PlayerHandler.HasPlayer(sender))
+		if (PlayerHandler.RegisterOrLogin(sender))
 		{
-			channel.sendMessage(sender.getAsMention() + ": Failed to register. You already have a player!");
+			channel.sendMessage(sender.getAsMention() + ": Failed to register. You already have a player!").queue();
 			return;
 		}
 		Player created;
@@ -34,8 +34,11 @@ public class RegisterCommand extends Command
 		{
 			created = PlayerHandler.CreatePlayer(sender, sender.getName());
 		}
-		created.privateChannel.sendMessage("You have been registered under the name " + created.name).queue();
-		created.privateChannel.sendMessage("You can change you preferences with the command $pref").queue();
+		if (created != null && created.privateChannel != null)
+		{
+			created.privateChannel.sendMessage("You have been registered under the name " + created.name).queue();
+			created.privateChannel.sendMessage("You can change your preferences with the command $pref").queue();
+		}
 	}
 
 }

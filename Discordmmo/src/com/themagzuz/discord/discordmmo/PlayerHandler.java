@@ -10,9 +10,11 @@ import net.dv8tion.jda.core.entities.User;
 public final class PlayerHandler
 {
 
+    public static int nextPlayerId = 0;
+
 	private PlayerHandler() {}
 	
-	static List<Player> players = new ArrayList<Player>();
+	private static List<Player> players = new ArrayList<Player>();
 	
 	/**
 	 * 
@@ -84,7 +86,7 @@ public final class PlayerHandler
 	 * @param user The user to get the player for
 	 * @return The player that owns {@code user}, or null if the user has no player
 	 */
-	public static Player getPlayer(User user)
+	public static Player GetPlayer(User user)
 	{
 		for (Player p : players)
 		{
@@ -100,7 +102,7 @@ public final class PlayerHandler
 	 * @param user The user to get the player for
 	 * @return The player that owns {@code user}, or null if the user has no player
 	 */
-	public static Player getPlayer(String mention)
+	public static Player GetPlayer(String mention)
 	{
 		for (Player p : players)
 		{
@@ -127,5 +129,37 @@ public final class PlayerHandler
 		}
 		return null;
 	}
-	
+
+	public static void UpdatePlayers()
+	{
+		for (Player p : players)
+		{
+            p.Tick();
+		}
+	}
+
+    /**
+     * Logs the user in if they already are registered
+     * @param u The user to be logged in
+     * @return True if the player now can be accessed
+     */
+	public static boolean RegisterOrLogin(User u)
+    {
+        if (HasPlayer(u))
+        {
+            return true;
+        }
+        if (DatabaseHandler.CanFetchPlayer(u))
+        {
+            DatabaseHandler.FetchAndCreatePlayer(u);
+            return true;
+        }
+        return false;
+    }
+
+    public static List<Player> GetPlayers()
+    {
+        return players;
+    }
+
 }
